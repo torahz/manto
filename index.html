@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Whatsapp 📵</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #00C851, #007E33);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 1em;
+        }
+        label {
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+        input {
+            padding: 0.5em;
+            font-size: 1em;
+            margin-bottom: 1em;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            padding: 0.7em 1.5em;
+            font-size: 1.2em;
+            color: white;
+            background-color: #25D366;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #128C7E;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            font-size: 0.8em;
+            color: white;
+        }
+        .footer button {
+            background-color: transparent;
+            border: 1px solid white;
+            padding: 0.5em 1em;
+            font-size: 0.8em;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <h1>Whatsapp 📵</h1>
+    <h2>Converse com o número sem adicionar</h2>
+    <label for="whatsapp-number">Inserir apenas o código e número:</label>
+    <input type="text" id="whatsapp-number" placeholder="Ex: 11912345678" onkeypress="if(event.key === 'Enter') startChat()">
+    <button onclick="startChat()">Conversar</button>
+    
+    <div class="footer">
+        <p>salve esse APP adicionando ele a sua tela inicial</p>
+        <button onclick="promptAddToHome()">adicionar à página inicial</button>
+        <p>By NamelessReaper</p>
+    </div>
+
+    <script>
+        function startChat() {
+            const number = document.getElementById('whatsapp-number').value;
+            if (number) {
+                window.location.href = `https://wa.me/55${number}`;
+            } else {
+                alert('Por favor, insira um número de telefone válido.');
+            }
+        }
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function promptAddToHome() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Usuário aceitou o prompt de instalação');
+                    } else {
+                        console.log('Usuário dispensou o prompt de instalação');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(function (registration) {
+                console.log('ServiceWorker registrado com sucesso:', registration.scope);
+            }).catch(function (error) {
+                console.log('Falha ao registrar o ServiceWorker:', error);
+            });
+        }
+    </script>
+</body>
+</html>
