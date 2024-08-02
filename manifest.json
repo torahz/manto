@@ -1,10 +1,10 @@
 {
-  "name": "Whatsapp Contact",
-  "short_name": "Whatsapp",
-  "start_url": ".",
+  "name": "WhatsApp Sem Contato",
+  "short_name": "WhatsApp",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#00C851",
-  "theme_color": "#00C851",
+  "background_color": "#ffffff",
+  "theme_color": "#25D366",
   "icons": [
     {
       "src": "icon-192x192.png",
