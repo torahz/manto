@@ -2,7 +2,7 @@
   "name": "Sorteio Pentecostal",
   "short_name": "Sorteio",
   "description": "Gerador de Benção Pentecostal",
-  "start_url": "/",
+  "start_url": "https://torahz.github.io/manto/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
